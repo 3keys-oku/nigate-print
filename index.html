@@ -104,31 +104,11 @@
     <select id="problemSetSelect" onchange="updateButton()">
       <option value="">-- 問題セットを選択 --</option>
 
-      <!-- ▼▼▼ ここから下に問題セットを追加していきます ▼▼▼ -->
-      <!-- value には既存ページの「完全なURL」をそのまま貼り付けてください -->
-
       <optgroup label="漢字熟語">
-        <option value="https://test.bt-c.jp/kanji/simple/index.php?pt=grade1">漢字熟語　１年</option>
+        <option value="https://test.bt-c.jp/kanji/simple/index.php?pt=grade%EF%BC%91">漢字熟語　１年</option>
         <option value="https://test.bt-c.jp/kanji/simple/index.php?pt=grade2">漢字熟語　２年</option>
-        <!-- 3年以降は、実際のURLをブラウザのアドレスバーからそのままコピーして
-             下の行のように追加してください（URLの形式が学年で違う場合があるため） -->
-        <!--
-        <option value="実際の3年のURLをここに貼り付け">漢字熟語　３年</option>
-        <option value="実際の4年のURLをここに貼り付け">漢字熟語　４年</option>
-        <option value="実際の5年のURLをここに貼り付け">漢字熟語　５年</option>
-        <option value="実際の6年のURLをここに貼り付け">漢字熟語　６年</option>
-        -->
+        <!-- 3年以降は、実際のURLをそのままコピーして追加してください -->
       </optgroup>
-
-      <!-- 学年以外のカテゴリ（例：四字熟語、読み方など）がある場合は、
-           同じように optgroup を追加してください -->
-      <!--
-      <optgroup label="その他の問題集">
-        <option value="実際のURL">セット名</option>
-      </optgroup>
-      -->
-
-      <!-- ▲▲▲ 追加はここまで ▲▲▲ -->
     </select>
 
     <button id="startBtn" onclick="goToSet()" disabled>この問題セットで始める</button>
@@ -146,12 +126,8 @@
         alert('問題セットを選んでください。');
         return;
       }
-      // 同じタブで既存の問題選択ページへ移動します
-      window.location.href = sel.value;
-
-      // ※印刷後にトップページへ戻りやすくしたい場合は、
-      //   上の行を下記に変えて「新しいタブで開く」方式にすることもできます。
-      // window.open(sel.value, "_blank");
+      // 新しいタブで既存の問題選択ページを開きます
+      window.open(sel.value, "_blank");
     }
   </script>
 
