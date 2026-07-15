@@ -104,11 +104,24 @@
     <select id="problemSetSelect" onchange="updateButton()">
       <option value="">-- 問題セットを選択 --</option>
 
+      <optgroup label="全漢字">
+        <option value="https://test.bt-c.jp/kanji/simple/index.php?pt=zenkanji1">全漢字　１年</option>
+        <option value="https://test.bt-c.jp/kanji/simple/index.php?pt=zenkanji2">全漢字　２年</option>
+        <option value="https://test.bt-c.jp/kanji/simple/index.php?pt=zenkanji3">全漢字　３年</option>
+        <option value="https://test.bt-c.jp/kanji/simple/index.php?pt=zenkanji4">全漢字　４年</option>
+        <option value="https://test.bt-c.jp/kanji/simple/index.php?pt=zenkanji5">全漢字　５年</option>
+        <option value="https://test.bt-c.jp/kanji/simple/index.php?pt=zenkanji6">全漢字　６年</option>
+      </optgroup>
+
       <optgroup label="漢字熟語">
         <option value="https://test.bt-c.jp/kanji/simple/index.php?pt=grade1">漢字熟語　１年</option>
         <option value="https://test.bt-c.jp/kanji/simple/index.php?pt=grade2">漢字熟語　２年</option>
-        <!-- 3年以降は、実際のURLをそのままコピーして追加してください -->
+        <option value="https://test.bt-c.jp/kanji/simple/index.php?pt=grade3">漢字熟語　３年</option>
+        <option value="https://test.bt-c.jp/kanji/simple/index.php?pt=grade4">漢字熟語　４年</option>
+        <option value="https://test.bt-c.jp/kanji/simple/index.php?pt=grade5">漢字熟語　５年</option>
+        <option value="https://test.bt-c.jp/kanji/simple/index.php?pt=grade6">漢字熟語　６年</option>
       </optgroup>
+
     </select>
 
     <button id="startBtn" onclick="goToSet()" disabled>この問題セットで始める</button>
