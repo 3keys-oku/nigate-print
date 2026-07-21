@@ -1,148 +1,387 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>3keys にがてたいじプリント生成アプリ</title>
-  <style>
-    body {
-      font-family: "Hiragino Kaku Gothic ProN", "Meiryo", "Yu Gothic", sans-serif;
-      background-color: #f4f7f6;
-      color: #333;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      margin: 0;
-      padding: 20px 0;
-    }
-    .container {
-      background-color: #ffffff;
-      padding: 36px 30px;
-      border-radius: 14px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
-      text-align: center;
-      max-width: 520px;
-      width: 90%;
-    }
-    h1 {
-      font-size: 1.4rem;
-      color: #2c3e50;
-      margin-bottom: 8px;
-      border-bottom: 3px solid #3498db;
-      padding-bottom: 12px;
-    }
-    .subtitle {
-      font-size: 0.85rem;
-      color: #777;
-      margin-bottom: 22px;
-    }
-    .steps {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-bottom: 24px;
-    }
-    .step {
-      background: #e8f0fe;
-      color: #1a73e8;
-      font-size: 0.78rem;
-      font-weight: 600;
-      border-radius: 16px;
-      padding: 4px 12px;
-    }
-    label {
-      display: block;
-      text-align: left;
-      font-size: 0.9rem;
-      color: #555;
-      margin-bottom: 6px;
-    }
-    select {
-      width: 100%;
-      padding: 12px;
-      font-size: 1.05rem;
-      border: 2px solid #bdc3c7;
-      border-radius: 8px;
-      background-color: #fff;
-      cursor: pointer;
-      outline: none;
-      margin-bottom: 18px;
-      box-sizing: border-box;
-    }
-    select:focus { border-color: #3498db; }
-    button {
-      background-color: #3498db;
-      color: white;
-      border: none;
-      padding: 13px 30px;
-      font-size: 1.05rem;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
-      width: 100%;
-      transition: background-color 0.2s;
-    }
-    button:hover { background-color: #2980b9; }
-    button:disabled { background-color: #ccc; cursor: not-allowed; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>にがてたいじプリント生成アプリ｜3keys</title>
+<style>
+  :root {
+    --cream-bg: #FBF6EE;
+    --ink: #3d332c;
+    --ink-soft: #7a6f66;
+    --ink-mute: #a89e94;
+    --line: #ead9c8;
+    --accent: #E8A87C;
+    --accent-deep: #D68A5A;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: "Hiragino Kaku Gothic ProN", "Meiryo", "Yu Gothic", sans-serif;
+    color: var(--ink);
+    background: var(--cream-bg);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ---- ヘッダー ---- */
+  .site-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 56px;
+    border-bottom: 1px solid var(--line);
+    background: var(--cream-bg);
+  }
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .brand-logo {
+    height: 28px;
+    width: auto;
+    display: block;
+  }
+  .header-nav {
+    display: flex;
+    gap: 28px;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+  .header-nav a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    transition: color .15s;
+  }
+  .header-nav a:hover { color: var(--ink); }
+
+  /* ---- メインヒーロー ---- */
+  main { flex: 1; }
+  .hero {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 28px 56px 28px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  /* アプリタイトル（明示） */
+  .app-title {
+    text-align: center;
+    padding-bottom: 2px;
+  }
+  .app-title .kicker {
+    font-size: 10.5px;
+    letter-spacing: .28em;
+    color: var(--accent-deep);
+    margin: 0 0 6px;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .app-title h1 {
+    font-family: "Hiragino Mincho ProN", "Yu Mincho", "YuMincho", serif;
+    font-size: 28px;
+    margin: 0;
+    color: var(--ink);
+    font-weight: 600;
+    letter-spacing: .06em;
+    line-height: 1.35;
+  }
+  .app-title .title-rule {
+    display: inline-block;
+    width: 40px;
+    height: 2px;
+    background: var(--accent);
+    margin: 12px 0 0;
+  }
+
+  /* リード文（左罫線） */
+  .hero-top {
+    text-align: left;
+    border-left: 3px solid var(--accent);
+    padding-left: 18px;
+  }
+  .hero-top .lead {
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    line-height: 1.85;
+    margin: 0;
+  }
+
+  /* フロー（3ステップ） */
+  .flow {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .flow-item {
+    padding: 14px 18px 14px;
+    border-right: 1px dashed var(--line);
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .flow-item:last-child { border-right: 0; }
+  .flow-item .num {
+    font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+    font-size: 22px;
+    color: var(--accent-deep);
+    margin: 0;
+    font-weight: 600;
+    letter-spacing: .04em;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .flow-item .num-sub {
+    display: none; /* コンパクト化のため非表示 */
+  }
+  .flow-item .txt {
+    font-size: 12.5px;
+    color: var(--ink);
+    line-height: 1.5;
+    margin: 0;
+    font-weight: 500;
+  }
+
+  /* 選択カード */
+  .card {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 22px 28px 22px;
+  }
+  .card-head {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 16px;
+    flex-wrap: nowrap;
+  }
+  .card-title { white-space: nowrap; flex-shrink: 0; }
+  .card-sub { flex: 1; min-width: 0; }
+  .card-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 14px;
+  }
+  .card-row .select-wrap { flex: 1; }
+  .card-title {
+    font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+    font-size: 15px;
+    color: var(--ink);
+    margin: 0;
+    font-weight: 600;
+    letter-spacing: .06em;
+  }
+  .card-sub {
+    font-size: 11.5px;
+    color: var(--ink-mute);
+    margin: 0;
+  }
+  .field-label {
+    font-size: 11px;
+    color: var(--ink-soft);
+    letter-spacing: .1em;
+    margin-bottom: 6px;
+    display: block;
+  }
+  .select-wrap {
+    position: relative;
+    margin-bottom: 0;
+  }
+  select {
+    width: 100%;
+    appearance: none;
+    -webkit-appearance: none;
+    padding: 11px 42px 11px 14px;
+    font-size: 14px;
+    font-family: inherit;
+    color: var(--ink);
+    background: #FBF6EE;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    cursor: pointer;
+    outline: none;
+    transition: border-color .15s, background .15s;
+  }
+  select:focus { border-color: var(--accent); background: #fff; }
+  .select-wrap::after {
+    content: "▾";
+    position: absolute;
+    right: 14px; top: 50%;
+    transform: translateY(-55%);
+    color: var(--ink-soft);
+    font-size: 13px;
+    pointer-events: none;
+  }
+  button.primary {
+    background: var(--ink);
+    color: #fff;
+    border: 0;
+    padding: 11px 26px;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    letter-spacing: .14em;
+    transition: background .15s;
+    white-space: nowrap;
+  }
+  button.primary:hover:not(:disabled) { background: #2a231d; }
+  button.primary:disabled {
+    background: #c8bdb2;
+    cursor: not-allowed;
+  }
+
+  /* フッター */
+  .site-footer {
+    text-align: center;
+    padding: 14px 56px 16px;
+    font-size: 11px;
+    color: var(--ink-mute);
+    letter-spacing: .06em;
+    border-top: 1px solid var(--line);
+    background: var(--cream-bg);
+  }
+  .site-footer a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    margin: 0 8px;
+  }
+  .site-footer a:hover { color: var(--ink); }
+  .site-footer .copyright {
+    margin-top: 4px;
+  }
+
+  @media (max-width: 720px) {
+    .site-header { padding: 12px 20px; }
+    .header-nav { gap: 14px; font-size: 12px; }
+    .hero { padding: 20px; gap: 16px; }
+    .app-title h1 { font-size: 22px; }
+    .flow { grid-template-columns: 1fr; }
+    .flow-item { border-right: 0; border-bottom: 1px dashed var(--line); }
+    .flow-item:last-child { border-bottom: 0; }
+    .card { padding: 20px; }
+    .card-row { flex-direction: column; align-items: stretch; }
+    button.primary { width: 100%; padding: 13px; }
+  }
+</style>
 </head>
 <body>
 
-  <div class="container">
-    <h1>3keys にがてたいじプリント生成アプリ</h1>
-    <p class="subtitle">間違えた問題だけを選んで、オリジナルの復習プリントを作ろう！</p>
+<header class="site-header">
+  <a href="#" class="brand" aria-label="3keys">
+    <img class="brand-logo" src="assets/3keys-logo.png" alt="3keys" />
+  </a>
+  <nav class="header-nav">
+    <a href="https://3keys.jp/">3keysについて</a>
+    <a href="https://3keys.jp/service/">事業内容</a>
+    <a href="#">お問い合わせ</a>
+  </nav>
+</header>
 
-    <div class="steps">
-      <span class="step">① 問題セットを選ぶ</span>
-      <span class="step">② 間違えた問題にチェック</span>
-      <span class="step">③ プリントを印刷</span>
+<main>
+  <div class="hero">
+
+    <!-- アプリタイトル（明示） -->
+    <div class="app-title">
+      <p class="kicker">Nigate-taiji Print</p>
+      <h1>にがてたいじプリント生成アプリ</h1>
+      <span class="title-rule"></span>
     </div>
 
-    <label for="problemSetSelect">問題セットを選んでください：</label>
-    <select id="problemSetSelect" onchange="updateButton()">
-      <option value="">-- 問題セットを選択 --</option>
+    <!-- リード -->
+    <div class="hero-top">
+      <p class="lead">
+        間違えた問題だけを選んで、オリジナルの復習プリントを作成できます。<br>
+        「わからない」をそのままにしない学習体験を、一人ひとりに。
+      </p>
+    </div>
 
-      <optgroup label="全漢字">
-        <option value="https://test.bt-c.jp/kanji/simple/index.php?pt=zenkanji1">全漢字　１年</option>
-        <option value="https://test.bt-c.jp/kanji/simple/index.php?pt=zenkanji2">全漢字　２年</option>
-        <option value="https://test.bt-c.jp/kanji/simple/index.php?pt=zenkanji3">全漢字　３年</option>
-        <option value="https://test.bt-c.jp/kanji/simple/index.php?pt=zenkanji4">全漢字　４年</option>
-        <option value="https://test.bt-c.jp/kanji/simple/index.php?pt=zenkanji5">全漢字　５年</option>
-        <option value="https://test.bt-c.jp/kanji/simple/index.php?pt=zenkanji6">全漢字　６年</option>
-      </optgroup>
+    <!-- 3ステップ（算用数字） -->
+    <div class="flow">
+      <div class="flow-item">
+        <p class="num">1</p>
+        <p class="txt">問題セットを選ぶ</p>
+      </div>
+      <div class="flow-item">
+        <p class="num">2</p>
+        <p class="txt">間違えた問題にチェック</p>
+      </div>
+      <div class="flow-item">
+        <p class="num">3</p>
+        <p class="txt">プリントを印刷</p>
+      </div>
+    </div>
 
-      <optgroup label="漢字熟語">
-        <option value="https://test.bt-c.jp/kanji/simple/index.php?pt=grade1">漢字熟語　１年</option>
-        <option value="https://test.bt-c.jp/kanji/simple/index.php?pt=grade2">漢字熟語　２年</option>
-        <option value="https://test.bt-c.jp/kanji/simple/index.php?pt=grade3">漢字熟語　３年</option>
-        <option value="https://test.bt-c.jp/kanji/simple/index.php?pt=grade4">漢字熟語　４年</option>
-        <option value="https://test.bt-c.jp/kanji/simple/index.php?pt=grade5">漢字熟語　５年</option>
-        <option value="https://test.bt-c.jp/kanji/simple/index.php?pt=grade6">漢字熟語　６年</option>
-      </optgroup>
+    <!-- 選択カード -->
+    <div class="card">
+      <div class="card-head">
+        <h3 class="card-title">問題セットを選ぶ</h3>
+        <p class="card-sub">全漢字・漢字熟語から学年別に選べます</p>
+      </div>
 
-    </select>
+      <div class="card-row">
+        <div class="select-wrap">
+          <label class="field-label" for="problemSetSelect">問題セットを選んでください</label>
+          <select id="problemSetSelect" onchange="updateButton()">
+          <option value="">-- 問題セットを選択 --</option>
+          <optgroup label="全漢字">
+            <option value="https://test.bt-c.jp/kanji/simple/index.php?pt=zenkanji1">全漢字　１年</option>
+            <option value="https://test.bt-c.jp/kanji/simple/index.php?pt=zenkanji2">全漢字　２年</option>
+            <option value="https://test.bt-c.jp/kanji/simple/index.php?pt=zenkanji3">全漢字　３年</option>
+            <option value="https://test.bt-c.jp/kanji/simple/index.php?pt=zenkanji4">全漢字　４年</option>
+            <option value="https://test.bt-c.jp/kanji/simple/index.php?pt=zenkanji5">全漢字　５年</option>
+            <option value="https://test.bt-c.jp/kanji/simple/index.php?pt=zenkanji6">全漢字　６年</option>
+          </optgroup>
+          <optgroup label="漢字熟語">
+            <option value="https://test.bt-c.jp/kanji/simple/index.php?pt=grade1">漢字熟語　１年</option>
+            <option value="https://test.bt-c.jp/kanji/simple/index.php?pt=grade2">漢字熟語　２年</option>
+            <option value="https://test.bt-c.jp/kanji/simple/index.php?pt=grade3">漢字熟語　３年</option>
+            <option value="https://test.bt-c.jp/kanji/simple/index.php?pt=grade4">漢字熟語　４年</option>
+            <option value="https://test.bt-c.jp/kanji/simple/index.php?pt=grade5">漢字熟語　５年</option>
+            <option value="https://test.bt-c.jp/kanji/simple/index.php?pt=grade6">漢字熟語　６年</option>
+          </optgroup>
+          </select>
+        </div>
+        <button id="startBtn" class="primary" onclick="goToSet()" disabled>始める</button>
+      </div>
+    </div>
 
-    <button id="startBtn" onclick="goToSet()" disabled>この問題セットで始める</button>
   </div>
+</main>
 
-  <script>
-    function updateButton() {
-      const sel = document.getElementById('problemSetSelect');
-      document.getElementById('startBtn').disabled = !sel.value;
+<footer class="site-footer">
+  <a href="https://3keys.jp/">3keys.jp</a> ・ <a href="#">プライバシーポリシー</a> ・ <a href="#">利用規約</a>
+  <div class="copyright">© 3keys All Rights Reserved.</div>
+</footer>
+
+<script>
+  function updateButton() {
+    const sel = document.getElementById('problemSetSelect');
+    document.getElementById('startBtn').disabled = !sel.value;
+  }
+  function goToSet() {
+    const sel = document.getElementById('problemSetSelect');
+    if (!sel.value) {
+      alert('問題セットを選んでください。');
+      return;
     }
+    window.open(sel.value, "_blank");
+  }
+</script>
 
-    function goToSet() {
-      const sel = document.getElementById('problemSetSelect');
-      if (!sel.value) {
-        alert('問題セットを選んでください。');
-        return;
-      }
-      // 新しいタブで既存の問題選択ページを開きます
-      window.open(sel.value, "_blank");
-    }
-  </script>
-
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"4edd5f8ec12a48cfa682ab8261b80a79","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>
 </html>
